@@ -2,11 +2,7 @@
   "name": "pineapples",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "bower install && grunt build",
-    "start": "node server"
-  },
+  "main": "server.js",
   "author": "",
   "license": "ISC",
   "dependencies": {
