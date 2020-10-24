@@ -1,15 +1,14 @@
+const PORT = process.env.PORT || 5000
 const http = require('http')
 const express = require('express')
 
 const app = express()
 app.use(express.static('public'))
+app.set('port', PORT)
 
-const PORT = process.env.PORT || 3000
-const INDEX = '/public/index.html'
-
-const server = express()
-  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+const server = app.listen(PORT, () => {
+    console.log("Listening on port: " + PORT);
+});
 
 const io = require('socket.io')(server)
 
@@ -49,5 +48,4 @@ io.sockets.on('connection', (socket) => {
 
 server.listen(PORT)
 
-//server.listen(process.env.PORT || '3000', 
-	//() => console.log("Server is running..."));*/
+*/

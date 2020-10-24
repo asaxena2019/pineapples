@@ -1,7 +1,7 @@
 let socket
 let color = '#FFF'
 let strokeWidth = 4
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 5000
 
 function setup() {
     const cv = createCanvas(800, 600)
@@ -9,7 +9,7 @@ function setup() {
     cv.background(0)
 
     // Start the socket connection
-    socket = io.connect('http://localhost:${PORT}')
+    socket = io.connect('http://localhost:{$PORT}')
 
     // Callback function
 	socket.on('mouse', data => {
