@@ -1,10 +1,34 @@
 const http = require('http')
 const express = require('express')
+
+const app = express()
+app.use(express.static('public'))
+
+const PORT = process.env.PORT || 3000
+const INDEX = '/public/index.html'
+
+const server = express()
+  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+const io = require('socket.io')(server)
+
+io.sockets.on('connection', (socket) => {
+	console.log('Client connected: ' + socket.id)
+
+	socket.on('mouse', (data) => socket.broadcast.emit('mouse', data))
+
+	socket.on('disconnect', () => console.log('Client has disconnected'))
+})
+
+/*const PORT = process.env.PORT || 3000;
+const http = require('http')
+const express = require('express')
 const app = express()
 
 app.use(express.static('public'))
 
-//app.set('port', '3000')
+app.set('port', PORT)
 
 const server = http.createServer(app)
 
@@ -23,7 +47,7 @@ io.sockets.on('connection', (socket) => {
 	socket.on('disconnect', () => console.log('Client has disconnected'))
 })
 
-//server.listen('3000')
+server.listen(PORT)
 
-server.listen(process.env.PORT || 3000, 
-	() => console.log("Server is running..."));
+//server.listen(process.env.PORT || '3000', 
+	//() => console.log("Server is running..."));*/
